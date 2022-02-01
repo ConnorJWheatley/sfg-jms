@@ -20,7 +20,7 @@ import java.util.UUID;
  * @Date: 01/02/2022 13:35
  */
 @RequiredArgsConstructor
-//@Component
+@Component
 public class HelloMessageListener {
 
     private final JmsTemplate jmsTemplate;
@@ -37,8 +37,8 @@ public class HelloMessageListener {
 
     @JmsListener(destination = JmsConfig.MY_SEND_RECEIVE_QUEUE)
     public void listenForHello(@Payload HelloWorldMessage helloWorldMessage,
-                       @Headers MessageHeaders headers,
-                       Message message) throws JMSException {
+                       @Headers MessageHeaders headers, Message jmsMessage,
+                       org.springframework.messaging.Message springMessage) throws JMSException {
 
         HelloWorldMessage payloadMsg = HelloWorldMessage
                 .builder()
@@ -46,6 +46,10 @@ public class HelloMessageListener {
                 .message("World!!")
                 .build();
 
-        jmsTemplate.convertAndSend(message.getJMSReplyTo(), payloadMsg);
+        //example to use Spring Message type
+        //jmsTemplate.convertAndSend((Destination) springMessage.getHeaders().get("jms_replyTo"), "got it!");
+
+        jmsTemplate.convertAndSend(jmsMessage.getJMSReplyTo(), payloadMsg);
+
     }
 }
