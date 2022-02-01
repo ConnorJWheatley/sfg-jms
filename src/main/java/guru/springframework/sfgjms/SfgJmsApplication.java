@@ -21,5 +21,4 @@ public class SfgJmsApplication {
 
 		SpringApplication.run(SfgJmsApplication.class, args);
 	}
-
 }
