@@ -20,7 +20,7 @@ import java.util.UUID;
  * @Date: 01/02/2022 13:35
  */
 @RequiredArgsConstructor
-@Component
+//@Component
 public class HelloMessageListener {
 
     private final JmsTemplate jmsTemplate;
